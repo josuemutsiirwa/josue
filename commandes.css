@@ -1,0 +1,20 @@
+table{
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+td{
+  width: 50%;
+}
+
+thead{
+    width: 100%;
+    color: blue;
+    text-align: left;
+}
+tfoot{
+    background:  rgba(0, 0, 0, 0.4);
+}
+
+body{
+    padding: 5%;
+}
