@@ -6,9 +6,69 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
-  padding: 20px;
+  padding-top: 90px;
   background-color: #f9f9f9;
   color: #333;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+
+div.link a.active{
+  color: #333;
+  font-weight: 700;
+}
+/* === NAVBAR === */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0073e6;
+  padding: 15px 40px;
+  flex-wrap: wrap;
+  position: fixed;
+  width: 100%;
+  z-index: 5;
+  margin: 0;
+  top: 0;
+}
+
+.navbar .link {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.navbar .link a {
+  margin: 0 10px;
+  font-size: 16px;
+  color: white;
+  transition: color 0.3s;
+}
+
+.navbar .link a:hover {
+  color: #d0eaff;
+}
+
+.navbar .btn button {
+  background-color: #fff;
+  color: #0073e6;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.navbar .btn button:hover {
+  background-color: #e6f2ff;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 20px;
 }
 
 /* === TITRE === */
@@ -43,8 +103,9 @@ h2 {
   color: #0073e6;
   text-align: center;
   margin-bottom: 30px;
-  font-size: 24px;
+  font-size: 40px;
   font-weight: bold;
+  padding: 60px;
 }
 
 /* === GRILLE DE PRODUITS === */
@@ -189,6 +250,38 @@ footer h3{
   .prix {
     font-size: 15px;
   }
+
+   footer .content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+
+  footer .loc {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .imagsign {
+    text-align: center;
+  }
+
+  .iconnes {
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  footer {
+    padding: 20px;
+  }
+
+  .iconnes img {
+    width: 28px;
+    height: 28px;
+  }
 }
 
 /* === RESPONSIVE : 600PX ET MOINS === */
@@ -235,6 +328,41 @@ footer h3{
   .titre {
     font-size: 18px;
     padding: 8px 15px;
+  }
+
+   footer .content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  footer .loc {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .imagsign {
+    text-align: center;
+  }
+
+  .iconnes {
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  footer {
+    padding: 20px;
+  }
+
+  footer h3 {
+    font-size: 16px;
+  }
+
+  .iconnes img {
+    width: 25px;
+    height: 25px;
   }
 }
 

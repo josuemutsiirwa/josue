@@ -1,82 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="commandes.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vos Commandes - JosueTech Store</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="commandes.css" />
 </head>
 <body>
-    <!-- MODAL de commande -->
-    
-    <div id="modalCommande" class="modal">
-        <div class="modal-content">
-            <span class="close">voir les commandes</span>
-            <h2>Récapitulatif de votre commande</h2>
-            <table id="table-commande">
-                <thead>
-                    <tr>
-                        <th>Produit</th>
-                        <th>Prix</th>
-                        <th>retirer</th>
-                    </tr>
-                </thead>
-                <hr>
-                <tbody></tbody>
-            <tfoot>
-                <tr>
-                    <td><div class="total">Total :</td>
-                    <td><span id="prix-total">0</span> $</td>
-                </tr>
-            </tfoot>
-            </table>
-            <!-- <div class="total">Total : <span id="prix-total">0</span> $</div> -->
-            <hr>
-            <h3>Numéro de carte bancaire :</h3>
-            <input type="text" id="carte" placeholder="1234 5678 9012 3456">
-            <br>
-            <button id="validerCommande">Valider la commande</button>
+
+  <header class="navbar">
+    <div class="logo">.JosueTech Store</div>
+    <div class="link">
+      <a href="index.html">Accueil</a>
+      <a href="produits.html">Produits</a>
+      <a href="index.html#categories">Catégories</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="btn">
+      <a href="commandes.html"><button>Voir vos commandes</button></a>
+    </div>
+  </header>
+
+  <main class="commande-page">
+    <h2>🛒 Récapitulatif de votre commande</h2>
+
+    <table id="table-commande">
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Prix</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+      <tfoot>
+        <tr>
+          <td><strong>Total :</strong></td>
+          <td><span id="prix-total">0</span> $</td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="paiement">
+      <h3>💳 Numéro de carte bancaire :</h3>
+      <input type="text" id="carte" placeholder="1234 5678 9012 3456" />
+      <br><br>
+      <button id="validerCommande">✅ Valider la commande</button>
+    </div>
+  </main>
+
+  <footer>
+    <div class="content">
+      <div class="adresse">
+        <h3>Adresse</h3>
+        <div class="loc">
+          <img src="./images/posion.png" alt="">
+          <span>Q.Kyeshero, Av.polyclinique 2</span>
         </div>
+      </div>
+      <div class="number">
+        <h3>Contacts</h3>
+        <span>+243 982 358 382</span><br>
+        <span>+243 981 036 856</span>
+      </div>
+      <div class="mail">
+        <h3>Gmail</h3>
+        <span>matembrajosue1@gmail.com</span><br>
+        <span>joshmukandirwa@gmail.com</span>
+      </div>
     </div>
-    <script src="index.js"></script>
-
-    <!-- footer -->
-<footer>
-<div class="content">
-    <div class="adresse">
-    <h3>Adresse</h3>
-    <div class="loc">
-      <img src="./images/posion.png" alt="">
-      <span>Q.Kyeshero, Av.polyclinique 2</span>
+    <hr>
+    <div class="imagsign">
+      <div class="iconnes">
+        <img src="./images/facebook.png" alt="">
+        <img src="./images/wattsapp.png" alt="">
+        <img src="./images/insta.png" alt="">
+      </div>
+      <div class="signature">
+        <p>© 2025 - JosueTech Store. All rights reserved</p>
+      </div>
     </div>
-  </div>
-  <div class="number">
-    <h3>contacts</h3>
-    <span>+243 982 358 382</span> <br>
-    <span>+243 981 036 856</span>
-  </div>
-  <div class="mail">
-    <h3>Gmail</h3>
-    <span>matembrajosue1@gmail.com</span> <br>
-    <span>joshmukandirwa@gmail.com</span>
-  </div>
-  
-</div>
-  <hr>
-  <div class="imagsign">
-    <div class="iconnes">
-      <img src="./images/facebook.png" alt="">
-      <img src="./images/wattsapp.png" alt="">
-      <img src="./images/insta.png" alt="">
-    </div>
+  </footer>
 
-    <div class="signature">
-      <p>© 2025 - JosueTech Store. All rights reserved</p>
-    </div>
-
-  </div>
-</footer>
-
+  <script src="index.js"></script>
 </body>
 </html>

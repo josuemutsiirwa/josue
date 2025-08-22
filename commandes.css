@@ -1,20 +1,220 @@
-table{
-  border: 1px solid rgba(255, 255, 255, 0.7);
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+  padding-top: 60px;
 }
 
-td{
-  width: 50%;
+.commande-page {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-thead{
+.commande-page h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+thead th {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  text-align: left;
+}
+
+tbody td, tfoot td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+tfoot td {
+  font-weight: bold;
+  background-color: #eee;
+}
+
+.supprimer-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  left: 0;
+}
+
+.supprimer-btn:hover {
+  background-color: #c0392b;
+}
+
+.paiement {
+  text-align: center;
+}
+
+#carte {
+  padding: 10px;
+  width: 80%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#validerCommande {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#validerCommande:hover {
+  background-color: #219150;
+}
+
+/* ========================
+   RESPONSIVE DESIGN
+   ======================== */
+
+/* Écrans ≤ 900px */
+ @media screen and (max-width: 0px) {
+  .commande-page {
+    padding: 15px;
+  }
+
+  table thead {
+    display: none; 
+    /* cacher l’en-tête */
+  }
+
+  table, tbody, tr, td {
+    display: block;
     width: 100%;
-    color: blue;
+  }
+
+  tr {
+    margin-bottom: 15px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  td {
+    text-align: right;
+    position: relative;
+    padding-left: 50%;
+    border: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
     text-align: left;
-}
-tfoot{
-    background:  rgba(0, 0, 0, 0.4);
+    font-weight: bold;
+  }
+
+  .paiement input,
+  #validerCommande {
+    width: 90%;
+  }
+  
+
+  /* Footer responsive sous 900px */
+  footer .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+
+  footer .loc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .imagsign {
+    text-align: center;
+  }
+
+  .iconnes {
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    display: flex;
+  }
+
+  footer {
+    padding: 20px;
+  }
+
+  .iconnes img {
+    width: 28px;
+    height: 28px;
+  }
+}  
+
+@media (max-width: 500px) {
+  .commande-page{
+    font-size: small;
+  }
 }
 
-body{
-    padding: 5%;
+/* Écrans ≤ 600px */
+@media screen and (max-width: 0px) {
+  .commande-page h2 {
+    font-size: 1.4em;
+  }
+
+  .paiement h3 {
+    font-size: 1.1em;
+  }
+
+  #validerCommande {
+    font-size: 1em;
+    padding: 10px;
+  }
+
+  #carte {
+    font-size: 1em;
+  }
+
+  .btn-supprimer {
+    font-size: 0.9em;
+    padding: 5px 8px;
+  }
+
+  footer h3 {
+    font-size: 16px;
+  }
+
+  .iconnes img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .loc,
+  .content {
+    gap: 20px;
+  }
 }

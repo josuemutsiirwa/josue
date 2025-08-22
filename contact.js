@@ -1,44 +1,37 @@
 document.getElementById("myForm").addEventListener("submit", function (e) {
-  e.preventDefault(); // Empêche l'envoi du formulaire
+  e.preventDefault();
 
-  // Récupération des champs
   const nom = document.getElementById("nom").value.trim();
   const number = document.getElementById("number").value.trim();
   const email = document.getElementById("email").value.trim();
+  const errorMsg = document.getElementById("messageError");
+  const successMsg = document.getElementById("messageSucces");
 
-  const messageError = document.getElementById("messageError");
-  const messageSucces = document.getElementById("messageSucces");
+  errorMsg.textContent = "";
+  successMsg.textContent = "";
 
-  messageError.textContent = "";
-  messageSucces.textContent = "";
-
-  // Regex de validation
-  const nameRegex = /^[a-zA-Z\s\-]{2,}$/; // au moins 2 lettres
-  const phoneRegex = /^\d{10}$/;          // exactement 10 chiffres
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // e-mail simple
-
-  // Vérification
-  if (!nameRegex.test(nom)) {
-    messageError.textContent = "❌ Nom invalide (au moins 2 lettres).";
+  // Vérifications simples
+  if (nom.length < 2) {
+    errorMsg.textContent = "❌ Le nom doit contenir au moins 2 caractères.";
     return;
   }
 
-  if (!phoneRegex.test(number)) {
-    messageError.textContent = "❌ Numéro de téléphone invalide (10 chiffres requis).";
+  if (!/^\d{9,15}$/.test(number)) {
+    errorMsg.textContent = "❌ Le numéro doit contenir entre 9 et 15 chiffres.";
     return;
   }
 
-  if (!emailRegex.test(email)) {
-    messageError.textContent = "❌ Adresse email invalide.";
+  if (!/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,6}$/.test(email)) {
+    errorMsg.textContent = "❌ Adresse e-mail invalide.";
     return;
   }
 
-  // Si tout est bon
-  messageSucces.textContent = "✅ Formulaire envoyé avec succès !";
+  // ✅ Affichage dans la console
   console.log("Nom :", nom);
-  console.log("Téléphone :", number);
+  console.log("Numéro :", number);
   console.log("Email :", email);
 
-  // Optionnel : Réinitialiser le formulaire
-  document.getElementById("myForm").reset();
+  successMsg.textContent = "✅ Formulaire envoyé avec succès !";
+
+  this.reset(); // Réinitialiser le formulaire après l'envoi
 });

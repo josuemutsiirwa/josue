@@ -1,99 +1,117 @@
-// Charger le panier depuis localStorage
-let panier = JSON.parse(localStorage.getItem("panier")) || [];
+document.addEventListener('DOMContentLoaded', function() {
+  // Boutons pour ajouter un produit au panier
+  var boutonsAjouter = document.querySelectorAll('.btn-commander');
 
-// Ajouter un produit au panier
-document.querySelectorAll(".btn-commander").forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    const produit = btn.closest(".produit-item");
-    const nom = produit.querySelector(".nom-produit").textContent;
-    const prix = parseFloat(produit.querySelector(".prix").textContent.replace("$", "").trim());
+  boutonsAjouter.forEach(function(bouton) {
+    bouton.addEventListener('click', function(event) {
+      event.preventDefault();
 
-    panier.push({ nom, prix });
-    localStorage.setItem("panier", JSON.stringify(panier));
-    alert(`${nom} ajouté au panier.`);
+      var produitElement = bouton.closest('.produit-item');
+      var nom = produitElement.querySelector('.nom-produit').textContent.trim();
+      var prixTexte = produitElement.querySelector('.prix').textContent.trim();
+
+      if (!nom || !prixTexte) {
+        alert("Erreur lors de la récupération du produit.");
+        return;
+      }
+
+      var prix = parseFloat(prixTexte.replace('$', '').replace(',', '.'));
+      if (isNaN(prix)) {
+        alert("Prix invalide.");
+        return;
+      }
+
+      // Récupérer le panier ou créer un tableau vide
+      var panier = JSON.parse(localStorage.getItem('panier')) || [];
+
+      // Ajouter le produit au panier
+      panier.push({ nom: nom, prix: prix });
+
+      // Sauvegarder dans localStorage
+      localStorage.setItem('panier', JSON.stringify(panier));
+
+      console.log('Produit ajouté : ' + nom + ' - ' + prix.toFixed(2) + '$');
+      alert('"' + nom + '" a été ajouté au panier.');
+    });
   });
-});
 
-// Cibler le bouton "Commander" de la navbar
-const boutonCommander = document.querySelector(".btn button");
+  // Affichage du panier sur la page commandes.html
+  var tbody = document.querySelector('tbody');
+  var totalEl = document.getElementById('prix-total');
+  var validerBtn = document.getElementById('validerCommande');
+  var carteInput = document.getElementById('carte');
 
-// Afficher le récapitulatif dans la modale
-// boutonCommander.addEventListener("click", () => {
-  if (panier.length === 0) {
-    document.querySelector("tbody").style.display = "none"
-    // alert("Votre panier est vide.");
-    // return;
+  if (tbody && totalEl && validerBtn && carteInput) {
+    var panier = JSON.parse(localStorage.getItem('panier')) || [];
+
+    function afficherPanier() {
+      tbody.innerHTML = '';
+
+      if (panier.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3">Votre panier est vide.</td></tr>';
+        totalEl.textContent = '0';
+        console.log('Panier vide');
+        return;
+      }
+
+      var total = 0;
+
+      panier.forEach(function(item, index) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td>' + item.nom + '</td><td>' + item.prix.toFixed(2) + ' $</td>' +
+                       '<td><button class="supprimer-btn" data-index="' + index + '">Supprimer</button></td>';
+        tbody.appendChild(tr);
+        total += item.prix;
+      });
+
+      totalEl.textContent = total.toFixed(2);
+      console.log('Panier affiché:', panier);
+
+      // Ajouter écouteurs sur boutons supprimer
+      var boutonsSupprimer = document.querySelectorAll('.supprimer-btn');
+      boutonsSupprimer.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var index = parseInt(btn.getAttribute('data-index'));
+          var produitSupprime = panier[index];
+          panier.splice(index, 1);
+          localStorage.setItem('panier', JSON.stringify(panier));
+          console.log('Produit supprimé : ' + produitSupprime.nom);
+          afficherPanier();
+        });
+      });
+    }
+
+    validerBtn.addEventListener('click', function() {
+      var carte = carteInput.value.trim();
+
+      if (carte.length < 12) {
+        alert('Numéro de carte invalide. Veuillez entrer au moins 12 chiffres.');
+        return;
+      }
+
+      if (panier.length === 0) {
+        alert('Votre panier est vide.');
+        return;
+      }
+
+      var total = 0;
+      panier.forEach(function(p) {
+        total += p.prix;
+      });
+
+      console.log('Commande validée. Carte: ' + carte + ', Total: ' + total.toFixed(2) + '$');
+      alert('Commande validée avec succès !\nCarte : ' + carte + '\nTotal : ' + total.toFixed(2) + ' $');
+
+      panier = [];
+      localStorage.removeItem('panier');
+      afficherPanier();
+      carteInput.value = '';
+    });
+
+    afficherPanier();
   }
-
-  const modal = document.getElementById("modalCommande");
-  const tbody = modal.querySelector("tbody");
-  const totalEl = document.getElementById("prix-total");
-
-  tbody.innerHTML = "";
-  let total = 0;
-
-  panier.forEach((item, index) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${item.nom}</td>
-      <td>${item.prix} $</td>
-      <td><button class="btn-supprimer" data-index="${index}">Supprimer</button></td>
-      </br>
-    `;
-    tbody.appendChild(row);
-    total += item.prix;
-  });
-
-  totalEl.textContent = total.toFixed(2);
-  modal.style.display = "block";
-
-  // Ajouter les événements de suppression
-document.querySelectorAll(".btn-supprimer").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const index = btn.getAttribute("data-index");
-      panier.splice(index, 1);
-      localStorage.setItem("panier", JSON.stringify(panier));
-      // boutonCommander.click(); // recharge le contenu
-      alert("element supprimme")
-  });
 });
-  
-// });
-
-// Fermer la modale avec le bouton "×"
-// document.querySelector(".close").addEventListener("click", () => {
-//   document.getElementById("modalCommande").style.display = "none";
-// });
-
-// Valider la commande
-document.getElementById("validerCommande").addEventListener("click", () => {
-  const numeroCarte = document.getElementById("carte").value.trim();
-
-  if (numeroCarte === "" || numeroCarte.length < 12) {
-    alert("❌ Veuillez entrer un numéro de carte valide.");
-    return;
-  }
-
-  const total = panier.reduce((sum, p) => sum + p.prix, 0);
-
-  console.log("🧾 Produits commandés :");
-  panier.forEach((p, i) => console.log(`${i + 1}. ${p.nom} - ${p.prix} $`));
-  console.log("💳 Carte utilisée :", numeroCarte);
-  console.log("💵 Total à payer :", total.toFixed(2) + " $");
-
-  alert("✅ Commande validée avec succès !");
-  panier = [];
-  localStorage.removeItem("panier");
-
-  document.getElementById("modalCommande").style.display = "none";
-  window.location.reload(); // recharge la page et cache le recap
-});
-  // const modal = document.getElementById("modalCommande");
-  // const tbody = modal.querySelector("tbody");
-
-if (panier.length === 0) {
-    tbody.innerHTML = "";
-    // alert("Votre panier est vide.");
-    // return;
-}
+document.querySelector(".navbar div.options").addEventListener("click", ()=>{
+  let div = document.querySelector(".navbar");
+  div.classList.add("active")
+})
