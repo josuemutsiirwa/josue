@@ -119,7 +119,7 @@ div.link a.active{
   }
 }
 
-/* pluspetit que 600px */
+/* plus petit que 600px */
 @media (max-width: 600px) {
   .navbar {
     padding: 10px 15px;
